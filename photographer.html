@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/fc9e95532b.js" crossorigin="anonymous"></script>
+    <title>Fisheye - photographe </title>
+  </head>
+  <body>
+    <header>
+      <a href="index.html" target="_self">
+        <img src="assets/images/logo.png"  id="logo-redirect" class="logo" alt="Fisheye Home Page"/>
+      </a>
+    </header>
+    <main id="main-container">
+    <div id="main-head">
+      <div class="photograph-header">
+        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+      </div>
+      
+    </div>
+    <div id="filter-containter">
+      <label for="filter" id="label-filter">Trier par</label>
+      <select name="filters" id="filter">
+        <option value="popularite" class="filter-list">Popularité</option>
+        <option value="date" class="filter-list">Date</option>
+        <option value="titre" class="filter-list">Titre</option>
+      </select>
+    </div>
+
+    <section id="photographer_gallery">
+    </section>
+
+    <div id="display_modal_background" aria-hidden="true">
+      <div id="display_modal" role="dialog" aria-modal="true" aria-hidden="true">
+        <span class="arrow" id="left-arrow" role="button" tabindex="0" aria-label="Image précédente"><em class="fa-solid fa-chevron-left"></em></span>
+        <div id="medias">
+          <img id="modal_image" class="modal-content" alt="image média" role="img" aria-label="Image en cours">
+          <video id="modal_video" class="modal-content" role="video" aria-label="Video en cours"></video>
+        </div>
+        <div id="caption"></div>
+        <span class="arrow" id="right-arrow" role="button" tabindex="0" aria-label="Image suivante"><em class="fa-solid fa-chevron-right"></em></span>
+        <span id="close_modal_display" role="button" tabindex="0" aria-label="Fermer la modal"><em class="fa-solid fa-xmark"></em></span>
+      </div>
+    </div>
+    <div id="contact_modal">
+			<div class="modal">
+				<div class="modal-title">
+          <div class="h_title">
+            <h2>Contactez-moi</h2>
+            <div id="close-modal" onclick="closeModal()"><em class="fa-solid fa-xmark" id="close_modal_contact_icon"></em></div>
+          </div>
+          <h2 id="photographer-name-contact"></h2>
+        </div>
+				<form id="myForm" method="get" >
+					<div>
+						<label for="firstname">Prénom</label>
+						<input id="firstname" name="firstname">
+            <label for="lastname">Nom</label>
+						<input id="lastname" name="lastname">
+            <label for="email">Email</label>
+						<input id="email" name="email">
+            <label for="message">Votre message</label>
+            <textarea id="message" name="message" rows="4" cols="70"></textarea>
+					</div>
+          <button class="contact_button" id="validate-contact-button" onclick="return validate()">Envoyer</button>
+				</form>
+			</div>
+		</div>
+    <div class="footer-sticky">
+      <span id="nb_likes"></span><span id="price"></span>
+    </div>
+  </main>
+    <script src="/scripts/pages/photographer.js" async></script>
+    <script src="scripts/templates/photographer.js"></script>
+    <script src="/scripts/utils/contactForm.js"></script>
+  </body>
+</html>
