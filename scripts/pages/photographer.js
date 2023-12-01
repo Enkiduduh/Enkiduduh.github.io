@@ -444,7 +444,7 @@ function checkPhotographerId () {
 
     class Message {
         constructor(firstname, lastname, email, message) {
-          this.fistname = firstname;
+          this.firstname = firstname;
           this.lastname = lastname;
           this.email = email;
           this.message = message;
@@ -504,3 +504,129 @@ function checkPhotographerId () {
         }
     }
 });
+
+let isValidFirst = 0;
+let isValidLast = 0;
+let isValidMail = 0;
+let isValidMessage = 0;
+
+
+form.firstname.addEventListener("input",function() { // Validation unitaire en temps réel lors de l'input
+  valideFirst(this);
+});
+
+//Fonction vérifier via la RegExp que le prénom est conforme
+const valideFirst = function(inputFirst) {
+  let firstRegExp = new RegExp(/(^([a-zA-Z]+){2,})+([\.\-\'][a-zA-Z]+)?$/, "g");
+  let testFirst = firstRegExp.test(inputFirst.value);
+  let error = document.querySelector("#errorfirst");
+  if (testFirst) {
+    firstname.classList.add("valid-input");
+    firstname.classList.remove("invalid-input");
+    error.innerText="";
+    isValidFirst = 0;
+    verifModalContact();
+  }
+  else {
+    firstname.classList.add("invalid-input");
+    firstname.classList.remove("valid-input");
+    error.innerText="Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
+    isValidFirst = 1;
+    verifModalContact();
+  }
+};
+
+form.lastname.addEventListener("input",function() { // Validation unitaire en temps réel lors de l'input
+  valideLast(this);
+});
+
+//Fonction vérifier via la RegExp que le prénom est conforme
+const valideLast = function(inputLast) {
+  let lastRegExp = new RegExp(/(^([a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+){2,})+([\.\-\'][a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+)?$/, 'g');
+  let testLast = lastRegExp.test(inputLast.value);
+  let error = document.querySelector("#errorlast");
+  if (testLast) {
+    lastname.classList.add("valid-input");
+    lastname.classList.remove("invalid-input");
+    error.innerText="";
+    isValidLast = 0;
+    verifModalContact();
+  }
+  else {
+    lastname.classList.add("invalid-input");
+    lastname.classList.remove("valid-input");
+    error.innerText="Veuillez entrer 2 caractères ou plus pour le champ du nom.";
+    isValidLast = 1;
+    verifModalContact();
+  }
+};
+
+form.email.addEventListener("input",function() {
+  valideEmail(this);
+});
+
+//Fonction vérifier via la RegExp que l'email est conforme'
+const valideEmail = function(inputEmail) {
+  let emailRegExp = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, "g");
+  let testEmail = emailRegExp.test(inputEmail.value);
+  let error = document.querySelector("#erroremail");
+  if (testEmail) {
+    email.classList.add("valid-input");
+    email.classList.remove("invalid-input");
+    error.innerText="";
+    isValidMail = 0;
+    verifModalContact();
+  } else {
+    email.classList.add("invalid-input");
+    email.classList.remove("valid-input");
+    error.innerText="Vous devez saisir un email valide. ex: xxx@xx.xx";
+    isValidMail = 1;
+    verifModalContact();
+  }
+};
+
+form.message.addEventListener("input",function() {
+  valideMessage(this);
+});
+
+//Fonction vérifier via la RegExp que l'email est conforme'
+const valideMessage = function(inputMessage) {
+  let messageRegExp = new RegExp(/[a-zA-Z]{3,}/, "g");
+  let testMessage = messageRegExp.test(inputMessage.value);
+  let error = document.querySelector("#errormessage");
+  if (testMessage) {
+    message.classList.add("valid-input");
+    message.classList.remove("invalid-input");
+    error.innerText="";
+    isValidMessage = 0;
+    verifModalContact();
+  } else {
+    message.classList.add("invalid-input");
+    message.classList.remove("valid-input");
+    error.innerText="Vous devez saisir au moins 3 lettres.";
+    isValidMessage = 1;
+    verifModalContact();
+  }
+};
+
+function verifModalContact() {
+    const sum = isValidFirst + isValidLast + isValidMail + isValidMessage;
+    const modal = document.querySelector(".modal");
+    console.log(sum);
+    switch (sum) {
+      case 1:
+          modal.style.height = "82%";
+        break;
+      case 2:
+          modal.style.height = "84%";
+        break;
+      case 3:
+          modal.style.height = "86%";
+        break;
+      case 4:
+          modal.style.height = "88%";
+        break;
+      default:
+          console.log("Autre");
+    }
+}
