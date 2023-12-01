@@ -148,7 +148,7 @@ function checkPhotographerId () {
             galleryCard.classList.add("gallery_card");
 
             if (mediaItem instanceof ImageMedia) {
-                galleryCard.innerHTML = `<img src="assets/images/${photographersData[x].name}/${mediaItem.image}" tabindex=0 class="gallery_media" alt="${mediaItem.title}">
+                galleryCard.innerHTML = `<img src="assets/images/${photographersData[x].name}/${mediaItem.image}" tabindex=0 class="gallery_media" alt="assets/images/${photographersData[x].name}/${mediaItem.title}">
                     <div class="card_info">
                         <h3>${mediaItem.title}</h3>
                         <div>
@@ -188,7 +188,7 @@ function checkPhotographerId () {
           function addOrRemoveALike (heartIcon, mediaItem) {
             heartIcon.addEventListener("click", function(){
                if (!mediaItem.hasLiked) {
-                  console.log("Entree addALike");
+                  // console.log("Entree addALike");
                   mediaItem.likes++; // Augmente de 1 les likes
                   mediaItem.hasLiked = true; // On set à True pour bloquer à 1 seul like ajouté
                   heartIcon.classList.add("hearticon_liked");
@@ -196,10 +196,10 @@ function checkPhotographerId () {
                   heartIcon.classList.remove("fa-regular");
                   updateLikes(heartIcon, mediaItem.likes); // Met à jour l'affichage du nombre de likes
                   sumResult += 1;
-                  console.log(sumResult);
+                  // console.log(sumResult);
                   nbLikes.innerHTML =`${sumResult} <i class="fa-solid fa-heart"></i>`;
                 } else if (mediaItem.hasLiked) {
-                    console.log("Entree removeALike");
+                    // console.log("Entree removeALike");
                     mediaItem.likes--; // Suppression du like présent si déjà ajouté
                     mediaItem.hasLiked = false; //
                     heartIcon.classList.remove("hearticon_liked");
@@ -208,17 +208,16 @@ function checkPhotographerId () {
                     heartIcon.classList.add("fa-regular");
                     updateLikes(heartIcon, mediaItem.likes); //
                     sumResult -= 1;
-                    console.log(sumResult);
+                    // console.log(sumResult);
                     nbLikes.innerHTML =`${sumResult} <i class="fa-solid fa-heart"></i>`;
                 }
             });
 
             heartIcon.addEventListener("keydown", function (event) {
               if (event.key === "Enter") {
-                  // Ajoutez ici la logique pour gérer le clic sur la touche "Enter"
-                  console.log("Cœur cliqué avec la touche Enter");
+                  // console.log("Cœur cliqué avec la touche Enter");
                   if (!mediaItem.hasLiked) {
-                    console.log("Entree addALike");
+                    // console.log("Entree addALike");
                     mediaItem.likes++; // Augmente de 1 les likes
                     mediaItem.hasLiked = true; // On set à True pour bloquer à 1 seul like ajouté
                     heartIcon.classList.add("hearticon_liked");
@@ -226,10 +225,10 @@ function checkPhotographerId () {
                     heartIcon.classList.remove("fa-regular");
                     updateLikes(heartIcon, mediaItem.likes); // Met à jour l'affichage du nombre de likes
                     sumResult += 1;
-                    console.log(sumResult);
+                    // console.log(sumResult);
                     nbLikes.innerHTML =`${sumResult} <i class="fa-solid fa-heart"></i>`;
                   } else if (mediaItem.hasLiked) {
-                      console.log("Entree removeALike");
+                      // console.log("Entree removeALike");
                       mediaItem.likes--; // Suppression du like présent si déjà ajouté
                       mediaItem.hasLiked = false; //
                       heartIcon.classList.remove("hearticon_liked");
@@ -238,7 +237,7 @@ function checkPhotographerId () {
                       heartIcon.classList.add("fa-regular");
                       updateLikes(heartIcon, mediaItem.likes); //
                       sumResult -= 1;
-                      console.log(sumResult);
+                      // console.log(sumResult);
                       nbLikes.innerHTML =`${sumResult} <i class="fa-solid fa-heart"></i>`;
                   }
               }
@@ -249,10 +248,10 @@ function checkPhotographerId () {
           filterMedia.addEventListener("change", function() {
             const selectedFilter = filterMedia.value;
             if (selectedFilter === "popularite") {
-              // Triez par popularité
+              // Tri par popularité
               mediaFiltered.sort((a, b) => b.likes - a.likes);
             } else if (selectedFilter === "date") {
-              // Triez par date (remplacez par la logique appropriée)
+              // Tri par date
               mediaFiltered.sort((a, b) => {
                 const dateA = new Date((a.date));
                 const dateB = new Date((b.date));
@@ -260,7 +259,7 @@ function checkPhotographerId () {
               });
 
             } else if (selectedFilter === "titre") {
-              // Triez par titre (remplacez par la logique appropriée)
+              // Tri par titre
               mediaFiltered.sort((a, b) => a.title.localeCompare(b.title));
             }
             // Effacez l'affichage existant
@@ -318,9 +317,6 @@ function checkPhotographerId () {
 
     }
     displayMediaWithPhotographerId();
-
-
-
 
     function displayImgInModal () {
       const medias = document.querySelectorAll(".gallery_media");
@@ -380,14 +376,14 @@ function checkPhotographerId () {
         modalVideo.style.display = "none";
         modalImage.src = chemin;// Afficher l'image cliquée dans la modal
       } else if (matchVideo) {
-          const videoElement = document.querySelector(".video_media"); // Sélectionnez votre élément vidéo par une classe ou une autre méthode
+          const videoElement = document.querySelector(".video_media");
           const title = videoElement.getAttribute("alt");
           console.log(title);
           const lastPartTitle = title.match(regExp);
           const titleVideo = lastPartTitle[1];
           console.log(titleVideo);
 
-          caption.innerHTML = titleVideo;
+          caption.textContent = titleVideo;
           modalImage.style.display = "none";
           modalVideo.style.display = "block";
           modalVideo.src = chemin;
@@ -468,13 +464,13 @@ function checkPhotographerId () {
           const lastElement = focusableElements[focusableElements.length - 1];
 
           if (e.shiftKey) {
-              // Si la touche Maj est enfoncée, dirige le focus vers le dernier élément
+              // Si bouton maj + tab, on dirige vers l'élément précédent
               if (document.activeElement === firstElement) {
                   e.preventDefault();
                   lastElement.focus();
               }
           } else {
-              // Sinon, dirige le focus vers le premier élément
+              // Sinon bouton tab, on dirige vers l'élément suivant
               if (document.activeElement === lastElement) {
                   e.preventDefault();
                   firstElement.focus();
@@ -494,13 +490,13 @@ function checkPhotographerId () {
         const lastElement = focusableElements[focusableElements.length - 1];
 
         if (e.shiftKey) {
-            // Si la touche Maj est enfoncée, dirige le focus vers le dernier élément
+            // Si bouton maj + tab, on dirige vers l'élément précédent
             if (document.activeElement === firstElement) {
                 e.preventDefault();
                 lastElement.focus();
             }
         } else {
-            // Sinon, dirige le focus vers le premier élément
+            // Sinon bouton tab, on dirige vers l'élément suivant
             if (document.activeElement === lastElement) {
                 e.preventDefault();
                 firstElement.focus();
@@ -508,38 +504,3 @@ function checkPhotographerId () {
         }
     }
 });
-
-//   document.addEventListener("keydown", function (e) {
-//     if (e.key === "Tab") {
-//         const focusableElements = document.querySelectorAll("#logo-redirect, .contact_button, #filter,  .gallery_media, .hearticon");
-//         const firstElement = focusableElements[0];
-//         const lastElement = focusableElements[focusableElements.length - 1];
-//         if (document.activeElement === lastElement && !e.shiftKey) {
-//             e.preventDefault();
-//             focusableElements[0].focus();
-//             console.log("Etape 1 - A");
-//         } else if (document.activeElement === focusableElements[0] && e.shiftKey) {
-//             e.preventDefault();
-//             lastElement.focus();
-//             console.log("Etape 1 - B");
-//           } else {
-//             if (e.shiftKey) {
-//                 // Si la touche Maj est enfoncée, dirige le focus vers le dernier élément
-//                 if (document.activeElement === firstElement) {
-//                     e.preventDefault();
-//                     lastElement.focus();
-//                     console.log("Etape 2 - A");
-
-//                 }
-//             } else {
-//             // Sinon, dirige le focus vers le premier élément
-//                 if (document.activeElement === lastElement) {
-//                     e.preventDefault();
-//                     firstElement.focus();
-//                     console.log("Etape 2 - B");
-
-//                 }
-//             }
-//         }
-//       }
-// });
