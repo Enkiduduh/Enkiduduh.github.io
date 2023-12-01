@@ -17,11 +17,6 @@ let photographerList = [];
     };
   }}
 
-  // getPhotographers()
-  // .then(() => {
-  //   console.log(photographerList);
-  // })
-
     async function displayData(photographers) {
       const photographersSection = document.querySelector(".photographer_section");
 
@@ -85,13 +80,13 @@ let photographerList = [];
         const lastElement = focusableElements[focusableElements.length - 1];
 
         if (e.shiftKey) {
-            // Si la touche Maj est enfoncée, dirige le focus vers le dernier élément
+            // Tab + Maj > focus vers l'élément précédent
             if (document.activeElement === firstElement) {
                 e.preventDefault();
                 lastElement.focus();
             }
         } else {
-            // Sinon, dirige le focus vers le premier élément
+            // Sinon juste Tab > focus vers l'élément suivant
             if (document.activeElement === lastElement) {
                 e.preventDefault();
                 firstElement.focus();
